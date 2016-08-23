@@ -72,7 +72,7 @@ class CachingPyStan(object):
 
         # W/o this, the same file will cache differently depending on whether
         # it's opened as a string or as unicode.
-        kwargs["model_code"] = str(kwargs["model_code"])
+        kwargs["model_code"] = unicode(kwargs["model_code"])
 
         # Now return a cached model
         return self._stan_model(pystan_version, **kwargs)

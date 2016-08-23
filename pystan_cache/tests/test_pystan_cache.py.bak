@@ -30,7 +30,7 @@ N = 10000
 beta = 1.0
 stan_data = {
     "N": N,
-    "x": [random() * beta for _ in range(N)]
+    "x": [random() * beta for _ in xrange(N)]
 }
 
 
@@ -103,7 +103,7 @@ def test_cached_fs(tmpdir):
         model1 = caching_pystan.stan_model(model_code=model_code)
 
     # Delete the key from the cache, leaving it only as a file
-    cached_model_key, = list(caching_pystan._cache._loaded.keys())
+    cached_model_key, = caching_pystan._cache._loaded.keys()
     del caching_pystan._cache._loaded[cached_model_key]
 
     with Timer() as slow_timer:
@@ -115,7 +115,7 @@ def test_cached_fs(tmpdir):
     # StanModel does not implement `__eq__`
     assert model1.module_name == model2.module_name
 
-    print(slow_timer.interval, fast_timer.interval)
+    print slow_timer.interval, fast_timer.interval
     assert slow_timer.interval < fast_timer.interval * MIN_SPEEDUP_FACTOR
 
 
